@@ -1,14 +1,14 @@
 // File: src/pages/Dashboard.jsx
 // Dashboard page component for the user dashboard
 
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { useFamily } from '../hooks/useFamily';
-import { useEvents } from '../hooks/useEvents';
-import Loader from '../components/common/Loader';
-import { formatDateShort } from '../utils/formatters';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useAuth } from "../hooks/useAuth";
+import { useFamily } from "../hooks/useFamily";
+import { useEvents } from "../hooks/useEvents";
+import Loader from "../components/common/Loader";
+import { formatDateShort } from "../utils/formatters";
+import { motion } from "framer-motion";
 
 const Dashboard = () => {
   const { currentUser } = useAuth();
@@ -22,15 +22,15 @@ const Dashboard = () => {
       const today = new Date();
       const thirtyDaysFromNow = new Date(today);
       thirtyDaysFromNow.setDate(today.getDate() + 30);
-      
+
       const upcoming = events
-        .filter(event => {
+        .filter((event) => {
           const eventDate = new Date(event.date);
           return eventDate >= today && eventDate <= thirtyDaysFromNow;
         })
         .sort((a, b) => new Date(a.date) - new Date(b.date))
         .slice(0, 5); // Get top 5 upcoming events
-      
+
       setUpcomingEvents(upcoming);
     }
   }, [events]);
@@ -45,48 +45,48 @@ const Dashboard = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1
-      }
-    }
+        staggerChildren: 0.1,
+      },
+    },
   };
-  
+
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
       transition: {
-        type: 'spring',
+        type: "spring",
         stiffness: 100,
-        damping: 12
-      }
-    }
+        damping: 12,
+      },
+    },
   };
 
   return (
     <div className="py-6">
-      <motion.div 
+      <motion.div
         className="mb-8"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
         <h1 className="text-3xl font-bold text-gradient mb-2">
-          Welcome, {currentUser?.displayName || 'User'}!
+          Welcome, {currentUser?.displayName || "User"}!
         </h1>
         <p className="text-gray-600 dark:text-gray-400">
           Manage your family tree, events, and media from your dashboard.
         </p>
       </motion.div>
 
-      <motion.div 
+      <motion.div
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {/* Family Tree Summary */}
-        <motion.div 
+        <motion.div
           className="card-glass p-6 rounded-xl"
           variants={itemVariants}
         >
@@ -95,16 +95,18 @@ const Dashboard = () => {
               <span className="text-2xl mr-2">🌳</span>
               Family Tree
             </h2>
-            <Link 
+            <Link
               to="/family-tree"
               className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium"
             >
               View All
             </Link>
           </div>
-          
+
           <div className="space-y-4">
-            {familyTree && familyTree.members && familyTree.members.length > 0 ? (
+            {familyTree &&
+            familyTree.members &&
+            familyTree.members.length > 0 ? (
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg p-4 text-center">
                   <span className="block text-3xl font-bold text-primary-600 dark:text-primary-400">
@@ -116,7 +118,10 @@ const Dashboard = () => {
                 </div>
                 <div className="bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg p-4 text-center">
                   <span className="block text-3xl font-bold text-secondary-600 dark:text-secondary-400">
-                    {familyTree.members.filter(m => m.generation === 0).length}
+                    {
+                      familyTree.members.filter((m) => m.generation === 0)
+                        .length
+                    }
                   </span>
                   <span className="text-sm text-gray-600 dark:text-gray-400">
                     Generations
@@ -129,7 +134,7 @@ const Dashboard = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
                   You haven't created a family tree yet.
                 </p>
-                <Link 
+                <Link
                   to="/family-tree"
                   className="btn-primary-glass inline-block px-4 py-2 rounded-lg"
                 >
@@ -141,7 +146,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* Upcoming Events */}
-        <motion.div 
+        <motion.div
           className="card-glass p-6 rounded-xl"
           variants={itemVariants}
         >
@@ -150,27 +155,31 @@ const Dashboard = () => {
               <span className="text-2xl mr-2">📅</span>
               Upcoming Events
             </h2>
-            <Link 
+            <Link
               to="/events"
               className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 text-sm font-medium"
             >
               View All
             </Link>
           </div>
-          
+
           <div className="space-y-3">
             {upcomingEvents.length > 0 ? (
               <div className="space-y-3">
-                {upcomingEvents.map(event => (
-                  <div 
-                    key={event._id} 
+                {upcomingEvents.map((event) => (
+                  <div
+                    key={event._id}
                     className="flex items-center p-3 bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg hover:bg-opacity-40 transition-all duration-200"
                   >
                     <div className="flex-shrink-0 w-12 h-12 bg-primary-100 dark:bg-primary-900 rounded-lg flex items-center justify-center mr-4">
                       <span className="text-xl">
-                        {event.type === 'birthday' ? '🎂' : 
-                         event.type === 'anniversary' ? '💍' : 
-                         event.type === 'memorial' ? '🕯️' : '🎉'}
+                        {event.type === "birthday"
+                          ? "🎂"
+                          : event.type === "anniversary"
+                          ? "💍"
+                          : event.type === "memorial"
+                          ? "🕯️"
+                          : "🎉"}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
@@ -190,7 +199,7 @@ const Dashboard = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">
                   No upcoming events in the next 30 days.
                 </p>
-                <Link 
+                <Link
                   to="/events/add"
                   className="btn-primary-glass inline-block px-4 py-2 rounded-lg"
                 >
@@ -202,7 +211,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* Quick Actions */}
-        <motion.div 
+        <motion.div
           className="card-glass p-6 rounded-xl"
           variants={itemVariants}
         >
@@ -212,9 +221,9 @@ const Dashboard = () => {
               Quick Actions
             </h2>
           </div>
-          
+
           <div className="space-y-3">
-            <Link 
+            <Link
               to="/family-tree/add-member"
               className="flex items-center p-3 bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg hover:bg-opacity-40 transition-all duration-200"
             >
@@ -225,8 +234,8 @@ const Dashboard = () => {
                 Add Family Member
               </span>
             </Link>
-            
-            <Link 
+
+            <Link
               to="/events/add"
               className="flex items-center p-3 bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg hover:bg-opacity-40 transition-all duration-200"
             >
@@ -237,8 +246,8 @@ const Dashboard = () => {
                 Create Event
               </span>
             </Link>
-            
-            <Link 
+
+            <Link
               to="/media/upload"
               className="flex items-center p-3 bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg hover:bg-opacity-40 transition-all duration-200"
             >
@@ -249,8 +258,8 @@ const Dashboard = () => {
                 Upload Media
               </span>
             </Link>
-            
-            <Link 
+
+            <Link
               to="/chat"
               className="flex items-center p-3 bg-white bg-opacity-30 dark:bg-gray-800 dark:bg-opacity-30 rounded-lg hover:bg-opacity-40 transition-all duration-200"
             >
@@ -265,7 +274,7 @@ const Dashboard = () => {
         </motion.div>
 
         {/* Recent Activity */}
-        <motion.div 
+        <motion.div
           className="card-glass p-6 rounded-xl md:col-span-2 lg:col-span-3"
           variants={itemVariants}
         >
@@ -275,7 +284,7 @@ const Dashboard = () => {
               Recent Activity
             </h2>
           </div>
-          
+
           <div className="text-center py-10">
             <div className="text-4xl mb-3">🔍</div>
             <p className="text-gray-600 dark:text-gray-400">
@@ -291,4 +300,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard; 
+export default Dashboard;

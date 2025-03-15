@@ -5,11 +5,9 @@
 .chat-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
   background-color: rgba(255, 255, 255, 0.8);
-  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .dark .chat-container {
@@ -23,6 +21,7 @@
   background-color: rgba(255, 255, 255, 0.9);
   display: flex;
   flex-direction: column;
+  height: 100vh;
   overflow: hidden;
 }
 
@@ -593,6 +592,7 @@
   padding: 16px;
   display: flex;
   flex-direction: column;
+  gap: 8px;
 }
 
 .chat-date-divider {
@@ -621,12 +621,25 @@
   max-width: 75%;
 }
 
+.chat-message-container {
+  display: flex;
+  width: 100%;
+}
+
 .chat-message-outgoing {
-  align-self: flex-end;
+  margin-left: auto;
+  margin-right: 0;
+  justify-content: flex-end;
+  display: flex;
+  width: 100%;
 }
 
 .chat-message-incoming {
-  align-self: flex-start;
+  margin-left: 0;
+  margin-right: auto;
+  justify-content: flex-start;
+  display: flex;
+  width: 100%;
 }
 
 .chat-message-content {
@@ -634,18 +647,21 @@
   border-radius: 16px;
   position: relative;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  max-width: 75%;
 }
 
 .chat-message-outgoing .chat-message-content {
   background-color: #3b82f6;
   color: white;
   border-bottom-right-radius: 4px;
+  margin-left: auto;
 }
 
 .chat-message-incoming .chat-message-content {
   background-color: #f3f4f6;
   color: #111827;
   border-bottom-left-radius: 4px;
+  margin-right: auto;
 }
 
 .dark .chat-message-incoming .chat-message-content {

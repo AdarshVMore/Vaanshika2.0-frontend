@@ -49,6 +49,17 @@ const DashboardLayout = () => {
     }
   };
 
+  // Get current page title
+  const getCurrentPageTitle = () => {
+    const path = location.pathname;
+    if (path.startsWith('/chat')) return 'Chat';
+    if (path.startsWith('/family-tree')) return 'Family Tree';
+    if (path.startsWith('/profile')) return 'Profile';
+    if (path.startsWith('/events')) return 'Events';
+    if (path.startsWith('/media')) return 'Media';
+    return 'Dashboard';
+  };
+
   // Navigation items
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: '📊' },
@@ -183,7 +194,7 @@ const DashboardLayout = () => {
               
               <div className="flex items-center">
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  {navItems.find(item => item.path === location.pathname)?.label || 'Dashboard'}
+                  {getCurrentPageTitle()}
                 </h1>
               </div>
               

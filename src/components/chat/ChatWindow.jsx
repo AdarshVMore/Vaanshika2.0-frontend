@@ -265,7 +265,9 @@ const ChatWindow = ({ chatId, onSendMessage, isLoading }) => {
                       )}
                       
                       <p className="chat-message-text">{message.text}</p>
-                      
+                      <div className="chat-message-time">
+                        {formatTime(message.timestamp)}
+                      </div>
                       {message.attachments && message.attachments.length > 0 && (
                         <div className="chat-attachment">
                           {message.attachments.map((attachment, index) => (
@@ -286,10 +288,6 @@ const ChatWindow = ({ chatId, onSendMessage, isLoading }) => {
                           ))}
                         </div>
                       )}
-                      
-                      <div className="chat-message-time">
-                        {formatTime(message.timestamp)}
-                      </div>
                     </div>
                   </motion.div>
                 );

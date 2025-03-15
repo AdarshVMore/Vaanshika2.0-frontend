@@ -131,7 +131,7 @@
 
   /* Enhanced Glassmorphic Button Styles */
   .btn-primary-glass {
-    @apply rounded-lg font-medium text-white;
+    @apply px-4 py-2 rounded-lg font-medium text-white;
     background: linear-gradient(135deg, theme('colors.primary.500'), theme('colors.primary.600'));
     box-shadow: 0 4px 10px rgba(var(--color-primary-500-rgb), 0.3);
     backdrop-filter: blur(4px);
@@ -139,7 +139,8 @@
   }
 
   .btn-primary-glass:hover {
-    background: linear-gradient(135deg, theme('colors.primary.600'), theme('colors.primary.700'));
+    @apply rounded-lg font-medium text-white;
+    background: linear-gradient(135deg, theme('colors.primary.500'), theme('colors.primary.600'));
     box-shadow: 0 6px 15px rgba(var(--color-primary-500-rgb), 0.4);
     transform: translateY(-1px);
   }

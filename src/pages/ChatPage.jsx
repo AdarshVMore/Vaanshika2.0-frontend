@@ -7,7 +7,6 @@ import { motion } from 'framer-motion';
 import { FaPlus, FaSearch, FaUsers, FaEllipsisV, FaTimes } from 'react-icons/fa';
 
 // Components
-import PageLayout from '../components/layout/PageLayout';
 import ChatWindow from '../components/chat/ChatWindow';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 
@@ -180,8 +179,8 @@ const ChatPage = () => {
   };
   
   return (
-    <PageLayout>
-      <div className="flex h-full overflow-hidden">
+    <div className="h-screen flex">
+      <div className="flex h-full overflow-hidden w-full">
         {/* Sidebar */}
         <motion.div 
           className="chat-sidebar"
@@ -407,7 +406,7 @@ const ChatPage = () => {
           </motion.div>
         </div>
       )}
-    </PageLayout>
+    </div>
   );
 };
 
